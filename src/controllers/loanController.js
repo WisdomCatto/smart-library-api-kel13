@@ -22,5 +22,15 @@ export const LoanController = {
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
+  },
+  async returnBook(req, res) {
+  try {
+    const result = await LoanModel.returnBook(req.params.id);
+    res.json({
+      message: result.message
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
+}
 };

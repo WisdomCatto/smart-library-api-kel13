@@ -10,3 +10,6 @@ router.get('/', MemberController.getAllMembers);
 router.post('/', MemberController.registerMember);
 
 export default router;
+router.get('/:id', MemberController.getMemberById);
+router.put('/:id', MemberController.updateMember);
+router.delete('/:id', MemberController.deleteMember);

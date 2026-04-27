@@ -7,3 +7,5 @@ router.get('/', LoanController.getLoans);
 router.post('/', LoanController.createLoan);
 
 export default router;
+
+router.put('/:id/return', LoanController.returnBook);

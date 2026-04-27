@@ -22,5 +22,31 @@ export const MemberController = {
     } catch (err) {
       res.status(400).json({ error: err.message });
     }
+  },
+  async getMemberById(req, res) {
+  try {
+    const data = await MemberModel.getById(req.params.id);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
+},
+
+async updateMember(req, res) {
+  try {
+    const data = await MemberModel.update(req.params.id, req.body);
+    res.json(data);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+},
+
+async deleteMember(req, res) {
+  try {
+    const result = await MemberModel.delete(req.params.id);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 };

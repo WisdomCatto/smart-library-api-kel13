@@ -5,3 +5,6 @@ const router = express.Router();
 router.get('/', AuthorController.getAuthors);
 router.post('/', AuthorController.addAuthor);
 export default router;
+router.get('/:id', AuthorController.getAuthorById);
+router.put('/:id', AuthorController.updateAuthor);
+router.delete('/:id', AuthorController.deleteAuthor);
