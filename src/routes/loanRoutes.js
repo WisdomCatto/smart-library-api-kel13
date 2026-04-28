@@ -9,3 +9,5 @@ router.post('/', LoanController.createLoan);
 export default router;
 
 router.put('/:id/return', LoanController.returnBook);
+
+router.get('/top-borrowers', LoanController.getTopBorrowers);

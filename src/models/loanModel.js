@@ -91,5 +91,38 @@ export const LoanModel = {
   } finally {
     client.release();
   }
+  },
+
+async getTopBorrowers() {
+  const query = `
+    SELECT 
+      m.id,
+      m.full_name,
+      m.email,
+      m.member_type,
+
+      COUNT(l.id) AS total_loans,
+      MAX(l.loan_date) AS last_loan_date,
+
+      (
+        SELECT b.title
+        FROM loans l2
+        JOIN books b ON l2.book_id = b.id
+        WHERE l2.member_id = m.id
+        GROUP BY b.title
+        ORDER BY COUNT(*) DESC
+        LIMIT 1
+      ) AS favorite_book
+
+    FROM members m
+    JOIN loans l ON l.member_id = m.id
+
+    GROUP BY m.id
+    ORDER BY total_loans DESC
+    LIMIT 3;
+  `;
+
+  const result = await pool.query(query);
+  return result.rows;
 }
 };
