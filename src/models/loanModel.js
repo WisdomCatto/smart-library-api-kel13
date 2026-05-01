@@ -124,5 +124,17 @@ async getTopBorrowers() {
 
   const result = await pool.query(query);
   return result.rows;
+},
+  async updateLoan(id, due_date) {
+  const query = `
+    UPDATE loans
+    SET due_date = $1
+    WHERE id = $2
+    RETURNING *
+  `;
+
+  const result = await pool.query(query, [due_date, id]);
+
+  return result.rows[0];
 }
 };
