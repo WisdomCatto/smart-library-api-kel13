@@ -136,5 +136,13 @@ async getTopBorrowers() {
   const result = await pool.query(query, [due_date, id]);
 
   return result.rows[0];
+},
+  async deleteLoan(id) {
+  const result = await pool.query(
+    'DELETE FROM loans WHERE id = $1 RETURNING *',
+    [id]
+  );
+
+  return result.rows[0];
 }
 };

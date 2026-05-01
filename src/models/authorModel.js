@@ -29,5 +29,19 @@ async update(id, name, nationality) {
 async delete(id) {
   await pool.query('DELETE FROM authors WHERE id = $1', [id]);
   return { message: "Author berhasil dihapus" };
+},
+async getAll(name) {
+  let query = 'SELECT * FROM authors';
+  let values = [];
+
+  if (name) {
+    query += ' WHERE name ILIKE $1';
+    values.push(`%${name}%`);
+  }
+
+  query += ' ORDER BY name ASC';
+
+  const result = await pool.query(query, values);
+  return result.rows;
 }
 };
